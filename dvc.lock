@@ -1,0 +1,120 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/data/data_ingestion.py
+    deps:
+    - path: src/data/data_ingestion.py
+      hash: md5
+      md5: 893c47ba92f3d7d25671e99c4e615ce9
+      size: 3247
+    params:
+      params.yaml:
+        data_ingestion.test_size: 0.25
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: 89fa6bae3a174487b3548d950924425b.dir
+      size: 633665
+      nfiles: 2
+  data_transformation:
+    cmd: python src/data/data_transformation.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: 89fa6bae3a174487b3548d950924425b.dir
+      size: 633665
+      nfiles: 2
+    - path: src/data/data_transformation.py
+      hash: md5
+      md5: c86fdf71eb55cab5c4fbf6882d18091b
+      size: 2826
+    outs:
+    - path: data/interim
+      hash: md5
+      md5: cd2cdab75136bdb12c8207f3ca0d34f4.dir
+      size: 390828
+      nfiles: 2
+  feature_engineering:
+    cmd: python src/features/feature_engineering.py
+    deps:
+    - path: data/interim
+      hash: md5
+      md5: cd2cdab75136bdb12c8207f3ca0d34f4.dir
+      size: 390828
+      nfiles: 2
+    - path: src/features/feature_engineering.py
+      hash: md5
+      md5: c1e9ac62f2a96b3be93c1afc49eaf5ee
+      size: 3350
+    params:
+      params.yaml:
+        feature_engineering.max_features: 50
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 907090eecf181e2cb42ca7ef7ebdbdd4.dir
+      size: 51388
+      nfiles: 2
+    - path: models/vectorizer.pkl
+      hash: md5
+      md5: 7c3a73d41af502474411340be7714dc2
+      size: 1861
+  model_training:
+    cmd: python src/model/model_training.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: 907090eecf181e2cb42ca7ef7ebdbdd4.dir
+      size: 51388
+      nfiles: 2
+    - path: src/model/model_training.py
+      hash: md5
+      md5: 4566a2477507bc4f33421061d020b1d9
+      size: 3073
+    params:
+      params.yaml:
+        model_training.clf: MultinomialNB
+        model_training.hyperparameters:
+          xgboost:
+            n_estimators: 100
+            learning_rate: 0.1
+            max_depth: 6
+            subsample: 0.8
+            colsample_bytree: 0.8
+            random_state: 42
+          random_forest:
+            n_estimators: 100
+            max_depth: 10
+            min_samples_split: 2
+            min_samples_leaf: 1
+            random_state: 42
+          logistic_regression:
+            penalty: l2
+            C: 1.0
+          MultinomialNB:
+            alpha: 1.0
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: 34c52fa07da6a2d8dca21853bc6c9bfd
+      size: 2196
+  model_evaluation:
+    cmd: python src/model/model_evaluation.py
+    deps:
+    - path: models/model.pkl
+      hash: md5
+      md5: 34c52fa07da6a2d8dca21853bc6c9bfd
+      size: 2196
+    - path: src/model/model_evaluation.py
+      hash: md5
+      md5: 0b7b6dc7091181b34fd53a00f277d066
+      size: 5249
+    outs:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: 5055955d442d0a0a2e703547e98b71ad
+      size: 79
+    - path: reports/metrics.json
+      hash: md5
+      md5: 3884f8ef57a6025d947969d5e6fb11d6
+      size: 117
