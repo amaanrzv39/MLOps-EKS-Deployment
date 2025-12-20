@@ -6,5 +6,4 @@ nltk==3.9.1
 numpy==2.2.1
 pandas==2.2.3
 pytest==9.0.2
-dotenv
 prometheus_client
