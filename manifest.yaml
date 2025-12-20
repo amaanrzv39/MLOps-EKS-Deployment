@@ -21,11 +21,11 @@ spec:
         - containerPort: 5000
         resources:
           requests:
-            cpu: "500m"
-            memory: "512Mi"
+            memory: "256Mi"
+            cpu: "250m"
           limits:
+            memory: "512Mi"
             cpu: "1"
-            memory: "1Gi"
         env:
         - name: DAGSHUB_TEST
           valueFrom:
