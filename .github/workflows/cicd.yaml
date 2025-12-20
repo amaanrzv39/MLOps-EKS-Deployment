@@ -34,3 +34,8 @@ jobs:
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
         run: |
           dvc repro
+      - name: run tests
+        env:
+            DAGSHUB_TEST: ${{ secrets.DAGSHUB_TEST }}
+        run: |
+          pytest
