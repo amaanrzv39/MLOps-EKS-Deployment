@@ -72,7 +72,7 @@ jobs:
 
       - name: Create Kubernetes Secret
         run: |
-          kubectl create secret generic capstone-secret \
+          kubectl create secret generic dagshub-secret \
             --from-literal=DAGSHUB_TEST=${{ secrets.DAGSHUB_TEST }} --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Deploy to EKS
