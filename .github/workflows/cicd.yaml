@@ -30,5 +30,7 @@ jobs:
       - name: run pipeline
         env:
           DAGSHUB_TEST: ${{ secrets.DAGSHUB_TEST }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
         run: |
           dvc repro
