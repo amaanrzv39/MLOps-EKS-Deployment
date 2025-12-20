@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/data/data_ingestion.py
       hash: md5
-      md5: 22ceefac94e8d437afaeeec1e75f5462
-      size: 3247
+      md5: e7eccfb7779af9237e9b6a4ad8c1825f
+      size: 3202
     params:
       params.yaml:
         data_ingestion.test_size: 0.25
@@ -107,8 +107,8 @@ stages:
       size: 1098
     - path: src/model/model_evaluation.py
       hash: md5
-      md5: 08340ceca266dfff6949c8f1b4f77995
-      size: 4803
+      md5: 595c7cd2fc6c2f34256b36d7876f1048
+      size: 4758
     outs:
     - path: reports/experiment_info.json
       hash: md5
