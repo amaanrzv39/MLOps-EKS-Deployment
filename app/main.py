@@ -8,9 +8,13 @@ from prometheus_client import Counter, Histogram, generate_latest, CollectorRegi
 import time
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
+import nltk
 import string
 import re
 import dagshub
+
+nltk.download('stopwords')
+nltk.download('wordnet')
 
 import warnings
 warnings.simplefilter("ignore", UserWarning)
