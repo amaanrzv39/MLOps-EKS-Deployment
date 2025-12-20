@@ -4,8 +4,6 @@ import pandas as pd
 pd.set_option('future.no_silent_downcasting', True)
 
 import os
-from dotenv import load_dotenv
-load_dotenv()
 from sklearn.model_selection import train_test_split
 import yaml
 import logging
@@ -77,7 +75,7 @@ def main():
         test_size = params['data_ingestion']['test_size']
         # test_size = 0.2
         s3 = s3_connection.s3_operations('s3-ar01', os.environ["AWS_ACCESS_KEY"], os.environ["AWS_SECRET_KEY"])
-        df = s3.fetch_file_from_s3("data.csv")
+        df = s3.fetch_file_from_s3("IMDB.csv")
         final_df = preprocess_data(df)
         train_data, test_data = train_test_split(final_df, test_size=test_size, random_state=42)
         save_data(train_data, test_data, data_path='./data')

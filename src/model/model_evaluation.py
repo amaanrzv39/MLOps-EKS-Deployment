@@ -11,24 +11,17 @@ import os
 from src.logger import logging
 
 
-# dagshub_token = os.getenv("DAGSHUB_TEST")
-# if not dagshub_token:
-#     raise EnvironmentError("DAGSHUB_TEST environment variable is not set")
+dagshub_token = os.getenv("DAGSHUB_TEST")
+if not dagshub_token:
+    raise EnvironmentError("DAGSHUB_TEST environment variable is not set")
 
-# os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
-# os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
 
-# dagshub_url = "https://dagshub.com"
-# repo_owner = "vikashdas770"
-# repo_name = "YT-Capstone-Project"
-# mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
-# -------------------------------------------------------------------------------------
-
-# Below code block is for local use
-# -------------------------------------------------------------------------------------
-mlflow.set_tracking_uri('https://dagshub.com/amaanrzv39/MLOps-EKS-Deployment.mlflow')
-dagshub.init(repo_owner='amaanrzv39', repo_name='MLOps-EKS-Deployment', mlflow=True)
-# -------------------------------------------------------------------------------------
+dagshub_url = "https://dagshub.com"
+repo_owner = "amaanrzv39"
+repo_name = "MLOps-EKS-Deployment"
+mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
 
 
 def load_model(file_path: str):
